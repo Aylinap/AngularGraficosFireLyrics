@@ -1,13 +1,18 @@
 import { Component } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
+import { AgCharts } from 'ag-charts-angular';
+import { AgChartOptions } from 'ag-charts-community';
+import { GraficodiasComponent } from "./graficodias/graficodias.component";
+import { GraficoventanasComponent } from "./graficoventanas/graficoventanas.component";
+import { TablagridComponent } from "./tablagrid/tablagrid.component";
+import { AgChartsModule } from "ag-charts-angular";
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet],
-  templateUrl: './app.component.html',
-  styleUrl: './app.component.css'
+  imports: [GraficodiasComponent, GraficoventanasComponent, TablagridComponent, AgChartsModule, AgCharts],
+  templateUrl: './app.component.html', 
+  styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'Logs';
+ title="Gráficos Firelyrics";
 }

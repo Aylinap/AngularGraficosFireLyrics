@@ -1,0 +1,11 @@
+.ag-theme-quartz {
+    /* Changes the color of the grid text */
+      --ag-foreground-color: rgb(9, 9, 9);
+      /* Changes the color of the grid background */
+      --ag-background-color: rgb(237, 227, 202);
+      /* Changes the header color of the top row */
+      --ag-header-background-color: rgb(10, 10, 10);
+      /* Changes the hover color of the row*/
+      --ag-row-hover-color: rgb(243, 11, 69);
+      --ag-header-foreground-color: rgb(255, 255, 255);
+}
