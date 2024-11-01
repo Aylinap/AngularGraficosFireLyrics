@@ -15,24 +15,41 @@ export class GraficodiasComponent implements OnInit {
   constructor(private http: HttpClient) {
     this.chartOptions = {
       title: {
-        text: "Páginas Más Vistas",
+        text: "Vistas por Día (Última Semana)",
+        
       },
+      
       data: [],
       series: [
         {
-          // tipo de grafico "bar"
-          type: 'bar',
-          xKey: 'ventana',
-          yKey: 'totalVistas',
-          yName: 'Total de Vistas',
-          fill: 'red',
+          type: "line",
+          xKey: "dia",
+          yKey: "totalVistas",
+          yName: "Total de Vistas",
+          tooltip: {
+            renderer: (params) => {
+              const date = new Date(params.datum.fecha);
+              const hours = date.getHours();
+              const minutes = date.getMinutes();
+              return {
+                content: `Día: ${params.datum.dia}<br/>Vistas: ${params.datum.totalVistas}<br/>`
+              };
+            }
+          },
+          stroke: "#ff4c4c", // Línea roja
+          marker: {
+            shape: "circle",
+            size: 5,
+            fill: "#ff4c4c", // Puntos rojos
+            stroke: "#ff1a1a",
+          },
         },
       ],
       axes: [
         {
           type: 'category',
           position: 'bottom',
-          title: { text: 'Ventana' }
+          title: { text: 'Día' }
         },
         {
           type: 'number',
@@ -45,14 +62,21 @@ export class GraficodiasComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.http.get<any[]>('https://localhost:7114/ControllerLogsPrincipal/paginas-mas-vistas')
+    this.http.get<any[]>('https://localhost:7114/ControllerLogsPrincipal/vistas-por-dia')
       .subscribe(data => {
-        console.log(data); 
+        console.log('Datos recibidos:', data);
+        const diasDeLaSemana = ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado'];
+        const dataMapeada = data.map(log => ({
+          dia: diasDeLaSemana[new Date(log.fecha).getDay()],
+          totalVistas: log.totalVistas,
+          fecha: log.fecha
+        }));
 
         this.chartOptions = {
           ...this.chartOptions,
-          data: data,
+          data: dataMapeada,
         };
+        console.log('Opciones del grafico:', this.chartOptions);
       });
   }
 }
