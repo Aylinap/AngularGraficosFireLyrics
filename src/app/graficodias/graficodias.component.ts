@@ -36,7 +36,7 @@ export class GraficodiasComponent implements OnInit {
               };
             }
           },
-          stroke: "#ff4c4c", // Línea roja
+          stroke: "#ff4c4c", // Linea roja
           marker: {
             shape: "circle",
             size: 5,
